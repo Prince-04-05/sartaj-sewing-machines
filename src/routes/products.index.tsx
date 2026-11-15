@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useMatch, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
@@ -17,7 +17,7 @@ const SORTS: { value: Sort; label: string }[] = [
   { value: "newest", label: "Newest" },
 ];
 
-export const Route = createFileRoute("/products")({
+export const Route = createFileRoute("/products/")({
   validateSearch: (s: Record<string, unknown>): ProductsSearch => ({
     q: typeof s.q === "string" && s.q ? s.q.slice(0, 80) : undefined,
     category: typeof s.category === "string" && s.category ? s.category : undefined,
@@ -39,18 +39,12 @@ export const Route = createFileRoute("/products")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: ProductsLayout,
+  component: ProductsPage,
 });
-
-function ProductsLayout() {
-  const child = useMatch({ from: "/products/$slug", shouldThrow: false });
-  if (child) return <Outlet />;
-  return <ProductsPage />;
-}
 
 function ProductsPage() {
   const { q, category, sort = "featured" } = Route.useSearch();
-  const navigate = useNavigate({ from: "/products" });
+  const navigate = useNavigate({ from: "/products/" });
   const { data: products } = useSuspenseQuery(productsQuery);
   const { data: categories } = useSuspenseQuery(categoriesQuery);
   const [term, setTerm] = useState(q ?? "");
