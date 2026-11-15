@@ -119,7 +119,7 @@ function ProductsPage() {
 
   return (
     <div>
-      <section className="grain relative -mt-[72px] overflow-hidden bg-gradient-ink pb-16 pt-36 text-ink-foreground">
+      <section className="grain relative overflow-hidden bg-gradient-ink pb-16 pt-20 text-ink-foreground">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <Reveal>
             <p className="eyebrow text-gold">The SARTAJ catalogue</p>

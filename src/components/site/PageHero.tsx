@@ -3,7 +3,7 @@ import { Reveal } from "./Reveal";
 
 export function PageHero({ eyebrow, title, subtitle, image }: { eyebrow: string; title: ReactNode; subtitle?: string; image?: string }) {
   return (
-    <section className="grain relative -mt-[72px] overflow-hidden bg-ink pb-20 pt-40 text-ink-foreground">
+    <section className="grain relative overflow-hidden bg-ink pb-20 pt-24 text-ink-foreground">
       {image && <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />}
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
       <div className="relative mx-auto max-w-7xl px-4 md:px-6">

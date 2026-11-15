@@ -19,7 +19,7 @@ export function Hero() {
   const words = content.heroTitle.split(" ");
 
   return (
-    <section ref={ref} className="grain relative -mt-[72px] min-h-[100svh] overflow-hidden bg-ink text-ink-foreground">
+    <section ref={ref} className="grain relative min-h-[calc(100svh-104px)] overflow-hidden bg-ink text-ink-foreground">
       <motion.div style={{ y: imgY, scale: imgScale }} className="absolute inset-0">
         <img
           src="/images/hero-machine.jpg"
@@ -33,7 +33,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/10" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
 
-      <motion.div style={{ y: textY, opacity: fade }} className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 pb-24 pt-36 md:px-6">
+      <motion.div style={{ y: textY, opacity: fade }} className="relative mx-auto flex min-h-[calc(100svh-104px)] max-w-7xl flex-col justify-center px-4 pb-24 pt-16 md:px-6">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

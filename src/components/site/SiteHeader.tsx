@@ -58,7 +58,7 @@ export function SiteHeader() {
       <header
         className={cn(
           "sticky top-0 z-40 transition-all duration-500",
-          scrolled ? "glass shadow-soft" : "bg-background/0",
+          scrolled ? "glass shadow-soft" : "bg-background",
         )}
       >
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-4 md:px-6" style={{ height: 72 }}>
