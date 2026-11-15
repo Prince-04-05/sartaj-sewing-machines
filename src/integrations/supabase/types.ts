@@ -14,16 +14,314 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      banners: {
+        Row: {
+          created_at: string
+          cta_label: string
+          cta_link: string
+          eyebrow: string
+          id: string
+          image_url: string
+          is_active: boolean
+          sort_order: number
+          subtitle: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          cta_label?: string
+          cta_link?: string
+          eyebrow?: string
+          id?: string
+          image_url: string
+          is_active?: boolean
+          sort_order?: number
+          subtitle?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          cta_label?: string
+          cta_link?: string
+          eyebrow?: string
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          sort_order?: number
+          subtitle?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      categories: {
+        Row: {
+          created_at: string
+          description: string
+          group_name: string
+          id: string
+          image_url: string | null
+          name: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          group_name?: string
+          id?: string
+          image_url?: string | null
+          name: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          group_name?: string
+          id?: string
+          image_url?: string | null
+          name?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      enquiries: {
+        Row: {
+          admin_notes: string
+          city: string
+          created_at: string
+          email: string | null
+          enquiry_type: string
+          id: string
+          message: string
+          name: string
+          phone: string
+          product_id: string | null
+          product_name: string
+          reference: string
+          status: Database["public"]["Enums"]["enquiry_status"]
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string
+          city?: string
+          created_at?: string
+          email?: string | null
+          enquiry_type?: string
+          id?: string
+          message?: string
+          name: string
+          phone: string
+          product_id?: string | null
+          product_name?: string
+          reference?: string
+          status?: Database["public"]["Enums"]["enquiry_status"]
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string
+          city?: string
+          created_at?: string
+          email?: string | null
+          enquiry_type?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string
+          product_id?: string | null
+          product_name?: string
+          reference?: string
+          status?: Database["public"]["Enums"]["enquiry_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enquiries_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gallery_images: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          image_url: string
+          sort_order: number
+          title: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          image_url: string
+          sort_order?: number
+          title?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          image_url?: string
+          sort_order?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category_id: string | null
+          created_at: string
+          description: string
+          features: string[]
+          id: string
+          images: string[]
+          is_best_seller: boolean
+          is_featured: boolean
+          is_published: boolean
+          name: string
+          short_description: string
+          slug: string
+          sort_order: number
+          specifications: Json
+          updated_at: string
+        }
+        Insert: {
+          category_id?: string | null
+          created_at?: string
+          description?: string
+          features?: string[]
+          id?: string
+          images?: string[]
+          is_best_seller?: boolean
+          is_featured?: boolean
+          is_published?: boolean
+          name: string
+          short_description?: string
+          slug: string
+          sort_order?: number
+          specifications?: Json
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string | null
+          created_at?: string
+          description?: string
+          features?: string[]
+          id?: string
+          images?: string[]
+          is_best_seller?: boolean
+          is_featured?: boolean
+          is_published?: boolean
+          name?: string
+          short_description?: string
+          slug?: string
+          sort_order?: number
+          specifications?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          location: string
+          message: string
+          name: string
+          rating: number
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          location?: string
+          message: string
+          name: string
+          rating?: number
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          location?: string
+          message?: string
+          name?: string
+          rating?: number
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      enquiry_status: "new" | "contacted" | "visit_scheduled" | "closed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +448,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      enquiry_status: ["new", "contacted", "visit_scheduled", "closed"],
+    },
   },
 } as const
