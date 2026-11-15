@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EnquireRouteImport } from './routes/enquire'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -68,6 +69,11 @@ const GalleryRoute = GalleryRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/enquire': typeof EnquireRoute
   '/gallery': typeof GalleryRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/enquire': typeof EnquireRoute
   '/gallery': typeof GalleryRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/enquire': typeof EnquireRoute
   '/gallery': typeof GalleryRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -220,6 +229,7 @@ export interface FileRouteTypes {
     | '/enquire'
     | '/gallery'
     | '/reset-password'
+    | '/robots.txt'
     | '/services'
     | '/sitemap.xml'
     | '/admin'
@@ -242,6 +252,7 @@ export interface FileRouteTypes {
     | '/enquire'
     | '/gallery'
     | '/reset-password'
+    | '/robots.txt'
     | '/services'
     | '/sitemap.xml'
     | '/products/$slug'
@@ -264,6 +275,7 @@ export interface FileRouteTypes {
     | '/enquire'
     | '/gallery'
     | '/reset-password'
+    | '/robots.txt'
     | '/services'
     | '/sitemap.xml'
     | '/_authenticated/admin'
@@ -288,6 +300,7 @@ export interface RootRouteChildren {
   EnquireRoute: typeof EnquireRoute
   GalleryRoute: typeof GalleryRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
@@ -350,6 +363,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -491,6 +511,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnquireRoute: EnquireRoute,
   GalleryRoute: GalleryRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProductsSlugRoute: ProductsSlugRoute,
