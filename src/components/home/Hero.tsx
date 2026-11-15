@@ -81,7 +81,7 @@ export function Hero() {
       </motion.div>
 
       <div
-        className="animate-in fade-in slide-in-from-right-6 duration-1000 delay-1000 fill-mode-both glass-ink absolute bottom-10 right-6 hidden max-w-xs animate-float rounded-2xl p-5 lg:block"
+        className="animate-in fade-in slide-in-from-right-6 duration-1000 delay-1000 fill-mode-both glass-ink absolute bottom-10 right-28 hidden max-w-xs animate-float rounded-2xl p-5 lg:block"
       >
         <div className="flex items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-gold text-gold-foreground"><Wrench className="h-5 w-5" /></span>

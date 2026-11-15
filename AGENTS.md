@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules (SARTAJ)
+- Public catalogue reads go through `src/lib/catalog.functions.ts` server functions using the anon client in `supabase-public.server.ts` (dynamic import inside handlers), so pages SSR with SEO data.
+- Enquiries are written only by the `submitEnquiry` server function (validation, honeypot, timing and per-phone rate limit), never directly from the browser; anon has no insert grant on `enquiries`.
+- Admin CRUD uses the browser client directly; table RLS (`has_role(auth.uid(),'admin')`) is the security boundary. The first auth user becomes admin via a trigger.
+- The `media` bucket is private (workspace blocks public buckets); uploads store a 10-year signed URL in the row.
+- Enquiry email notifications are not wired yet: they need a verified sender domain, then a fixed template sent from `submitEnquiry`.
+- Product prices must never exist in the schema or UI.
