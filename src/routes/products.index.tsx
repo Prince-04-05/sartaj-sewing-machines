@@ -19,9 +19,9 @@ const SORTS: { value: Sort; label: string }[] = [
 
 export const Route = createFileRoute("/products/")({
   validateSearch: (s: Record<string, unknown>): ProductsSearch => ({
-    q: typeof s.q === "string" && s.q ? s.q.slice(0, 80) : undefined,
-    category: typeof s.category === "string" && s.category ? s.category : undefined,
-    sort: SORTS.some((x) => x.value === s.sort) ? (s.sort as Sort) : undefined,
+    q: typeof s["q"] === "string" && s["q"] ? s["q"].slice(0, 80) : undefined,
+    category: typeof s["category"] === "string" && s["category"] ? s["category"] : undefined,
+    sort: SORTS.some((x) => x.value === s["sort"]) ? (s["sort"] as Sort) : undefined,
   }),
   loader: async ({ context }) => {
     await Promise.all([

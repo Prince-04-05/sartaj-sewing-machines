@@ -10,8 +10,8 @@ type EnquireSearch = { product?: string | undefined; type?: (typeof ENQUIRY_TYPE
 
 export const Route = createFileRoute("/enquire")({
   validateSearch: (s: Record<string, unknown>): EnquireSearch => ({
-    product: typeof s.product === "string" && s.product ? s.product : undefined,
-    type: ENQUIRY_TYPES.includes(s.type as (typeof ENQUIRY_TYPES)[number]) ? (s.type as (typeof ENQUIRY_TYPES)[number]) : undefined,
+    product: typeof s["product"] === "string" && s["product"] ? s["product"] : undefined,
+    type: ENQUIRY_TYPES.includes(s["type"] as (typeof ENQUIRY_TYPES)[number]) ? (s["type"] as (typeof ENQUIRY_TYPES)[number]) : undefined,
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   head: () => ({
