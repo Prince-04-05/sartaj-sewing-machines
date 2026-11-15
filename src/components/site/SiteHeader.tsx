@@ -71,8 +71,8 @@ export function SiteHeader() {
                 key={n.to}
                 to={n.to}
                 activeOptions={{ exact: n.to === "/" }}
-                className="relative rounded-full px-3.5 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-foreground data-[status=active]:text-foreground"
-                activeProps={{ "data-status": "active" } as Record<string, string>}
+                className="relative rounded-full px-3.5 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
               >
                 {({ isActive }) => (
                   <>
