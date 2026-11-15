@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { enquirySchema, type EnquiryInput } from "@/lib/enquiry-schema";
+import { enquirySchema, type EnquiryInput, type EnquiryParsed } from "@/lib/enquiry-schema";
 import { submitEnquiry } from "@/lib/enquiry.functions";
 import { ENQUIRY_TYPES, type ProductDTO } from "@/lib/site";
 import { EnquiryConfirmation, type EnquirySummary } from "./EnquiryConfirmation";
@@ -26,7 +26,7 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
   const startedAt = useRef(0);
   const submit = useServerFn(submitEnquiry);
 
-  const form = useForm<EnquiryInput>({
+  const form = useForm<EnquiryInput, unknown, EnquiryParsed>({
     resolver: zodResolver(enquirySchema),
     defaultValues: {
       name: "",
@@ -58,7 +58,7 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
   const errors = formState.errors;
   const selectedProductId = watch("productId");
 
-  async function onSubmit(values: EnquiryInput) {
+  async function onSubmit(values: EnquiryParsed) {
     setServerError(null);
     try {
       const res = await submit({ data: { ...values, startedAt: startedAt.current } });
@@ -67,7 +67,7 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
         toast.error(res.error);
         return;
       }
-      const parsed = enquirySchema.parse({ ...values, startedAt: startedAt.current });
+      const parsed = values;
       setSummary({
         reference: res.reference,
         createdAt: res.createdAt,
