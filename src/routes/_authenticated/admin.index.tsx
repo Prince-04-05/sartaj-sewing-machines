@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Images, Inbox, Package, Shapes } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { StatusBadge } from "./admin.enquiries";
+import { StatusBadge } from "@/components/admin/StatusBadge";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   component: Dashboard,
