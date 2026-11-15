@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -93,7 +93,7 @@ export function ProductSlider({
   tone = "light",
 }: {
   eyebrow: string;
-  title: React.ReactNode;
+  title: ReactNode;
   subtitle?: string;
   products: ProductDTO[];
   tone?: "light" | "dark";
