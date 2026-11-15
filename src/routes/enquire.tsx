@@ -6,7 +6,7 @@ import { BrandedImage } from "@/components/site/BrandedImage";
 import { productsQuery } from "@/lib/queries";
 import { ENQUIRY_TYPES } from "@/lib/site";
 
-type EnquireSearch = { product?: string; type?: (typeof ENQUIRY_TYPES)[number] };
+type EnquireSearch = { product?: string | undefined; type?: (typeof ENQUIRY_TYPES)[number] | undefined };
 
 export const Route = createFileRoute("/enquire")({
   validateSearch: (s: Record<string, unknown>): EnquireSearch => ({

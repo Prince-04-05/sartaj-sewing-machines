@@ -10,12 +10,12 @@ export function BrandedImage({
   eager,
   badge = true,
 }: {
-  src: string;
+  src?: string | undefined;
   alt: string;
-  className?: string;
-  imgClassName?: string;
-  eager?: boolean;
-  badge?: boolean;
+  className?: string | undefined;
+  imgClassName?: string | undefined;
+  eager?: boolean | undefined;
+  badge?: boolean | undefined;
 }) {
   return (
     <div className={cn("relative overflow-hidden bg-secondary", className)}>

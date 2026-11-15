@@ -94,9 +94,9 @@ export function ProductSlider({
 }: {
   eyebrow: string;
   title: ReactNode;
-  subtitle?: string;
+  subtitle?: string | undefined;
   products: ProductDTO[];
-  tone?: "light" | "dark";
+  tone?: "light" | "dark" | undefined;
 }) {
   const [api, setApi] = useState<CarouselApi>();
   useAutoplay(api, 5000);
@@ -146,7 +146,7 @@ export function BannerSlider({ banners }: { banners: Banner[] }) {
     return () => clearInterval(id);
   }, [banners.length]);
   if (!banners.length) return null;
-  const b = banners[i];
+  const b = banners[i] ?? banners[0]!;
   const isInternal = b.cta_link.startsWith("/");
   return (
     <section className="mx-auto max-w-7xl px-4 md:px-6">

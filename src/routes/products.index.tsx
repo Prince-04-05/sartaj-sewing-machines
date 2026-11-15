@@ -8,7 +8,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { categoriesQuery, productsQuery } from "@/lib/queries";
 
 type Sort = "featured" | "name-asc" | "name-desc" | "newest";
-type ProductsSearch = { q?: string; category?: string; sort?: Sort };
+type ProductsSearch = { q?: string | undefined; category?: string | undefined; sort?: Sort | undefined };
 
 const SORTS: { value: Sort; label: string }[] = [
   { value: "featured", label: "Featured first" },

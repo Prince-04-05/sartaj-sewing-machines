@@ -17,8 +17,11 @@ import { ImageListInput } from "./ImageUpload";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = supabase as unknown as { from: (t: string) => any };
 
-export type Row = Record<string, unknown> & { id: string };
-type FormValues = Record<string, unknown>;
+// Admin rows/forms are dynamic per table; RLS on each table is the security boundary.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Row = any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type FormValues = any;
 
 export type Field =
   | { name: string; label: string; type: "text" | "number" | "textarea"; required?: boolean; hint?: string; rows?: number }

@@ -12,9 +12,9 @@ export function SectionHeading({
 }: {
   eyebrow: string;
   title: ReactNode;
-  subtitle?: string;
-  align?: "center" | "left";
-  tone?: "dark" | "light";
+  subtitle?: string | undefined;
+  align?: "center" | "left" | undefined;
+  tone?: "dark" | "light" | undefined;
   action?: ReactNode;
 }) {
   return (

@@ -10,7 +10,7 @@ export type EnquirySummary = {
   createdAt: string;
   name: string;
   phone: string;
-  email?: string;
+  email?: string | undefined;
   city: string;
   productName: string;
   enquiryType: string;
