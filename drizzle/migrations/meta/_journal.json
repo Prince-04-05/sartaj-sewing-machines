@@ -8,6 +8,13 @@
       "when": 1794760196299,
       "tag": "0000_sartaj_core_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794762631577,
+      "tag": "0001_tighten_settings_and_media_reads",
+      "breakpoints": true
     }
   ]
 }
