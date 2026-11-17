@@ -45,35 +45,37 @@ function ServicesPage() {
   return (
     <>
       <PageHero eyebrow="Repair & Service" title={<>Expert care for <em className="text-gradient-gold">every machine</em></>} subtitle="Domestic and industrial, every brand — repaired by technicians who have spent years inside sewing machines." image="/images/repair-service.jpg" />
-      <section className="mx-auto max-w-7xl px-4 py-24 md:px-6">
+      <section className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
         <SectionHeading eyebrow="What we do" title="Services at the SARTAJ workshop" />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4">
           {SERVICES.map(({ Icon, title, body }, i) => (
             <Reveal key={title} delay={i * 0.04}>
-              <div className="group h-full rounded-2xl border border-border bg-card p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold hover:shadow-lift">
-                <span className="grid h-12 w-12 place-items-center rounded-xl bg-ink text-gold transition-transform group-hover:rotate-6"><Icon className="h-6 w-6" /></span>
-                <h2 className="mt-5 text-xl">{title}</h2>
-                <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+              <div className="group flex h-full gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft sm:block md:p-6 transition-all duration-500 hover:-translate-y-1 hover:border-gold hover:shadow-lift">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-ink text-gold transition-transform group-hover:rotate-6 md:h-12 md:w-12"><Icon className="h-5 w-5 md:h-6 md:w-6" /></span>
+                <div className="min-w-0">
+                  <h2 className="text-lg sm:mt-5 md:text-xl">{title}</h2>
+                  <p className="mt-1 text-sm text-muted-foreground sm:mt-2">{body}</p>
+                </div>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
-      <section className="grain bg-gradient-ink py-24 text-ink-foreground">
+      <section className="grain bg-gradient-ink py-16 text-ink-foreground md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeading tone="light" eyebrow="How it works" title="Simple, transparent service" />
-          <ol className="grid gap-5 md:grid-cols-4">
+          <ol className="grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4">
             {STEPS.map(([t, b], i) => (
               <Reveal key={t} delay={i * 0.08}>
-                <li className="glass-ink h-full rounded-2xl p-6">
-                  <span className="font-display text-5xl text-gradient-gold">0{i + 1}</span>
-                  <h3 className="mt-4 text-xl">{t}</h3>
+                <li className="glass-ink h-full rounded-2xl p-5 md:p-6">
+                  <span className="font-display text-4xl text-gradient-gold md:text-5xl">0{i + 1}</span>
+                  <h3 className="mt-3 text-lg md:mt-4 md:text-xl">{t}</h3>
                   <p className="mt-2 text-sm text-ink-foreground/70">{b}</p>
                 </li>
               </Reveal>
             ))}
           </ol>
-          <div className="mt-14 flex flex-wrap justify-center gap-3">
+          <div className="mt-10 grid gap-3 sm:flex sm:flex-wrap sm:justify-center md:mt-14">
             <Button asChild variant="gold" size="xl"><Link to="/enquire" search={{ type: "Repair & Service" }}>Book a Service</Link></Button>
             <Button asChild variant="whatsapp" size="xl"><a href={whatsappLink(contact.whatsapp, "Hello SARTAJ, I need my sewing machine serviced.")} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className="h-4 w-4" /> WhatsApp {formatPhone(contact.whatsapp)}</a></Button>
             <Button asChild variant="outline-gold" size="xl"><a href={telLink(contact.phone)}>Call {formatPhone(contact.phone)}</a></Button>

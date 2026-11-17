@@ -143,7 +143,11 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
+    overflow-wrap: break-word;
+    text-wrap: balance;
   }
+  p { text-wrap: pretty; }
+  img, video { max-width: 100%; }
   ::selection {
     background: var(--gold);
     color: var(--gold-foreground);
@@ -166,6 +170,12 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar { display: none; }
 }
 
 @utility glass {

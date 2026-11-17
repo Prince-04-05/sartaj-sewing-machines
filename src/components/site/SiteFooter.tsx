@@ -16,10 +16,10 @@ export function SiteFooter() {
   return (
     <footer className="grain relative overflow-hidden bg-gradient-ink text-ink-foreground">
       <div className="stitch-line opacity-60" />
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 md:grid-cols-2 md:px-6 lg:grid-cols-4">
-        <div>
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-12 md:grid-cols-3 md:px-6 md:py-16 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr] lg:gap-12">
+        <div className="col-span-2 md:col-span-3 lg:col-span-1">
           <Logo tone="light" />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-foreground/70">
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-foreground/70">
             Premium sewing machines, motors, spare parts and expert repair in Hariana, Punjab. Visit our showroom — we'll help you pick the right machine.
           </p>
           <div className="mt-6 flex gap-2">
@@ -66,7 +66,7 @@ export function SiteFooter() {
             <li><Link to="/enquire" className="hover:text-gold">Send an Enquiry</Link></li>
           </ul>
         </div>
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <h3 className="eyebrow text-gold">Visit the shop</h3>
           <ul className="mt-5 space-y-4 text-sm text-ink-foreground/80">
             <li className="flex gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
@@ -86,7 +86,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-ink-foreground/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-xs text-ink-foreground/50 md:flex-row md:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-center text-xs leading-relaxed text-ink-foreground/50 md:flex-row md:px-6 md:text-left">
           <p>© {new Date().getFullYear()} SARTAJ Sewing Machines, Hariana. All rights reserved.</p>
           <p>Purchases are made in person at our shop — enquire online, visit us to buy.</p>
         </div>

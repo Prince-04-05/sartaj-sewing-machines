@@ -82,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "SARTAJ — Premium Sewing Machines, Motors & Repair | Hariana, Punjab" },
       {
         name: "description",
@@ -161,10 +161,12 @@ function RootComponent() {
         </a>
       )}
       {!isAppArea && <SiteHeader />}
-      <main id="main">
+      <main id="main" className={isAppArea ? undefined : "min-h-[50vh]"}>
         <Outlet />
       </main>
       {!isAppArea && <SiteFooter />}
+      {/* Space for the phone action bar so the footer is never hidden behind it */}
+      {!isAppArea && <div aria-hidden="true" className="h-[calc(64px+env(safe-area-inset-bottom))] bg-ink md:hidden" />}
       {!isAppArea && <FloatingActions />}
       <Toaster position="top-center" richColors />
     </QueryClientProvider>

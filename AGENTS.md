@@ -36,3 +36,4 @@ use the editor.
 - The `media` bucket is private (workspace blocks public buckets); uploads store a 10-year signed URL in the row.
 - Enquiry email notifications are not wired yet: they need a verified sender domain, then a fixed template sent from `submitEnquiry`.
 - Product prices must never exist in the schema or UI.
+- On phones, contact shortcuts live in a fixed bottom bar (FloatingActions) with a matching spacer after the footer in __root; floating round buttons are md+ only, so nothing covers page content on small screens.

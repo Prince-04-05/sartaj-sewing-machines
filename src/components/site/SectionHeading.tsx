@@ -20,7 +20,7 @@ export function SectionHeading({
   return (
     <Reveal
       className={cn(
-        "mb-12 flex flex-col gap-4",
+        "mb-8 flex flex-col gap-5 md:mb-12",
         align === "center" ? "items-center text-center" : "items-start text-left md:flex-row md:items-end md:justify-between",
       )}
     >
@@ -31,14 +31,14 @@ export function SectionHeading({
         </p>
         <h2
           className={cn(
-            "mt-4 text-4xl font-medium leading-[1.05] md:text-5xl",
+            "mt-3 text-[2rem] font-medium leading-[1.08] sm:text-4xl md:mt-4 md:text-5xl md:leading-[1.05]",
             tone === "light" ? "text-ink-foreground" : "text-foreground",
           )}
         >
           {title}
         </h2>
         {subtitle && (
-          <p className={cn("mt-4 text-base leading-relaxed", tone === "light" ? "text-ink-foreground/70" : "text-muted-foreground")}>
+          <p className={cn("mt-3 text-[0.95rem] leading-relaxed md:mt-4 md:text-base", tone === "light" ? "text-ink-foreground/70" : "text-muted-foreground")}>
             {subtitle}
           </p>
         )}

@@ -33,22 +33,22 @@ function EnquirePage() {
   const product = slug ? products.find((p) => p.slug === slug) : undefined;
 
   return (
-    <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 md:px-6 lg:grid-cols-[1fr_1.4fr]">
+    <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 md:px-6 md:py-16 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
       <aside className="lg:sticky lg:top-28 lg:self-start">
         <p className="eyebrow text-gold">Enquiry & shop visit</p>
-        <h1 className="mt-3 text-5xl font-medium leading-tight">{product ? "Enquire about this product" : "How can we help?"}</h1>
+        <h1 className="mt-3 text-[2.25rem] font-medium leading-tight sm:text-5xl">{product ? "Enquire about this product" : "How can we help?"}</h1>
         <p className="mt-4 text-muted-foreground">Fill in your details and our team will contact you. Purchases are made in person at our shop — no online payment needed.</p>
         {product && (
-          <div className="mt-8 flex gap-4 rounded-2xl border border-border bg-card p-4 shadow-soft">
-            <BrandedImage src={product.images[0]} alt={product.name} className="h-24 w-24 shrink-0 rounded-xl" badge={false} />
-            <div>
+          <div className="mt-6 flex gap-4 rounded-2xl border border-border bg-card p-4 shadow-soft md:mt-8">
+            <BrandedImage src={product.images[0]} alt={product.name} className="h-20 w-20 shrink-0 rounded-xl sm:h-24 sm:w-24" badge={false} />
+            <div className="min-w-0">
               <p className="eyebrow text-[0.6rem] text-gold">{product.category?.name}</p>
-              <p className="mt-1 font-display text-xl">{product.name}</p>
+              <p className="mt-1 font-display text-lg sm:text-xl">{product.name}</p>
               <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{product.short_description}</p>
             </div>
           </div>
         )}
-        <ol className="mt-10 space-y-5">
+        <ol className="mt-8 grid gap-5 sm:grid-cols-2 md:mt-10 lg:grid-cols-1">
           {[
             [ShieldCheck, "Send your enquiry", "Takes less than a minute."],
             [Phone, "We contact you", "By call or WhatsApp, usually the same day."],

@@ -45,11 +45,11 @@ export function ProductCard({ product, eager }: { product: ProductDTO; eager?: b
           {product.is_best_seller ? "Best Seller" : "Featured"}
         </span>
       )}
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
         {product.category && (
           <p className="eyebrow text-[0.62rem] text-gold">{product.category.name}</p>
         )}
-        <h3 className="mt-2 text-xl font-medium leading-snug">
+        <h3 className="mt-2 text-lg font-medium leading-snug sm:text-xl">
           <Link to="/products/$slug" params={{ slug: product.slug }} className="hover:text-gold">
             {product.name}
           </Link>
@@ -58,19 +58,19 @@ export function ProductCard({ product, eager }: { product: ProductDTO; eager?: b
         {product.features.length > 0 && (
           <ul className="mt-3 flex flex-wrap gap-1.5">
             {product.features.slice(0, 2).map((f) => (
-              <li key={f} className="rounded-full bg-secondary px-2.5 py-1 text-[0.68rem] text-secondary-foreground">
+              <li key={f} className="max-w-full truncate rounded-full bg-secondary px-2.5 py-1 text-[0.68rem] text-secondary-foreground">
                 {f}
               </li>
             ))}
           </ul>
         )}
-        <div className="mt-auto flex gap-2 pt-5">
-          <Button asChild variant="outline-ink" size="sm" className="flex-1 rounded-full">
+        <div className="mt-auto grid grid-cols-2 gap-2 pt-4 sm:pt-5">
+          <Button asChild variant="outline-ink" size="sm" className="h-10 min-w-0 rounded-full px-2 sm:h-9">
             <Link to="/products/$slug" params={{ slug: product.slug }}>
               View Details <ArrowUpRight />
             </Link>
           </Button>
-          <Button asChild variant="ink" size="sm" className="flex-1 rounded-full">
+          <Button asChild variant="ink" size="sm" className="h-10 min-w-0 rounded-full px-2 sm:h-9">
             <Link to="/enquire" search={{ product: product.slug }}>
               <MessageSquareText /> Enquire Now
             </Link>

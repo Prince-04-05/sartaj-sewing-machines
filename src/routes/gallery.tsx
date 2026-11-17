@@ -52,8 +52,8 @@ function GalleryPage() {
   return (
     <>
       <PageHero eyebrow="Gallery" title={<>The SARTAJ <em className="text-gradient-gold">portfolio</em></>} subtitle="Machines, motors, parts, our showroom and the workshop where we bring machines back to life." image="/images/showroom.jpg" />
-      <section className="mx-auto max-w-7xl px-4 py-16 md:px-6">
-        <div className="mb-10 flex flex-wrap justify-center gap-2" role="tablist" aria-label="Gallery categories">
+      <section className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-16">
+        <div className="scrollbar-none -mx-4 mb-6 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:mb-10 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0" role="tablist" aria-label="Gallery categories">
           {cats.map((c) => (
             <button
               key={c}
@@ -61,13 +61,13 @@ function GalleryPage() {
               role="tab"
               aria-selected={cat === c}
               onClick={() => setCat(c)}
-              className={`rounded-full border px-5 py-2 text-sm transition-all ${cat === c ? "border-ink bg-ink text-ink-foreground" : "border-border hover:border-gold"}`}
+              className={`shrink-0 whitespace-nowrap rounded-full border px-5 py-2 text-sm transition-all ${cat === c ? "border-ink bg-ink text-ink-foreground" : "border-border hover:border-gold"}`}
             >
               {c}
             </button>
           ))}
         </div>
-        <motion.div layout className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
+        <motion.div layout className="columns-2 gap-3 sm:gap-4 lg:columns-3 lg:gap-5 [&>*]:mb-3 sm:[&>*]:mb-4 lg:[&>*]:mb-5">
           <AnimatePresence mode="popLayout">
             {items.map((g, i) => (
               <motion.button
@@ -79,7 +79,7 @@ function GalleryPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4, delay: Math.min(i, 9) * 0.03 }}
-                className="group relative block w-full break-inside-avoid overflow-hidden rounded-2xl bg-secondary text-left"
+                className="group relative block w-full break-inside-avoid overflow-hidden rounded-xl bg-secondary text-left sm:rounded-2xl"
                 aria-label={`Open ${g.title}`}
               >
                 <img src={g.image_url} alt={g.title} loading="lazy" className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${["aspect-[4/5]", "aspect-square", "aspect-[4/3]"][i % 3]}`} />
@@ -90,7 +90,7 @@ function GalleryPage() {
                   </div>
                   <Expand className="h-5 w-5 text-ink-foreground" />
                 </div>
-                <span className="glass-ink absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.55rem] font-bold tracking-[0.25em] text-ink-foreground">
+                <span className="glass-ink absolute left-2 top-2 inline-flex sm:left-3 sm:top-3 items-center gap-1 rounded-full px-2 py-0.5 text-[0.55rem] font-bold tracking-[0.25em] text-ink-foreground">
                   <CrownMark className="h-3 w-3" /> SARTAJ
                 </span>
               </motion.button>
@@ -114,17 +114,17 @@ function GalleryPage() {
             <button type="button" aria-label="Close" className="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-gold/40 text-ink-foreground" onClick={() => setOpen(null)}>
               <X className="h-5 w-5" />
             </button>
-            <button type="button" aria-label="Previous image" className="absolute left-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-gold/40 text-ink-foreground md:left-8" onClick={(e) => { e.stopPropagation(); prev(); }}>
+            <button type="button" aria-label="Previous image" className="absolute bottom-6 left-[calc(50%-3.5rem)] z-10 grid h-12 w-12 place-items-center rounded-full border border-gold/40 bg-ink/60 text-ink-foreground md:bottom-auto md:left-8 md:top-1/2 md:-translate-y-1/2" onClick={(e) => { e.stopPropagation(); prev(); }}>
               <ChevronLeft className="h-6 w-6" />
             </button>
-            <button type="button" aria-label="Next image" className="absolute right-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-gold/40 text-ink-foreground md:right-8" onClick={(e) => { e.stopPropagation(); next(); }}>
+            <button type="button" aria-label="Next image" className="absolute bottom-6 right-[calc(50%-3.5rem)] z-10 grid h-12 w-12 place-items-center rounded-full border border-gold/40 bg-ink/60 text-ink-foreground md:bottom-auto md:right-8 md:top-1/2 md:-translate-y-1/2" onClick={(e) => { e.stopPropagation(); next(); }}>
               <ChevronRight className="h-6 w-6" />
             </button>
             <motion.figure key={current.id} initial={{ scale: 0.94, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.35 }} className="max-h-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-              <img src={current.image_url} alt={current.title} className="max-h-[80vh] w-auto rounded-2xl object-contain" />
+              <img src={current.image_url} alt={current.title} className="mx-auto max-h-[65vh] w-auto rounded-2xl object-contain md:max-h-[80vh]" />
               <figcaption className="mt-4 text-center text-ink-foreground">
                 <span className="eyebrow text-gold">{current.category}</span>
-                <p className="mt-1 font-display text-2xl">{current.title}</p>
+                <p className="mt-1 font-display text-xl md:text-2xl">{current.title}</p>
               </figcaption>
             </motion.figure>
           </motion.div>

@@ -17,10 +17,10 @@ import { directionsLink, formatPhone, telLink, whatsappLink, type CategoryDTO, t
 export function CategoryMarquee({ categories }: { categories: CategoryDTO[] }) {
   const items = [...categories, ...categories];
   return (
-    <div className="relative overflow-hidden border-y border-border bg-card py-5" aria-hidden="true">
+    <div className="relative overflow-hidden border-y border-border bg-card py-4 md:py-5" aria-hidden="true">
       <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
         {items.map((c, i) => (
-          <span key={`${c.id}-${i}`} className="flex items-center gap-10 font-display text-xl text-foreground/70">
+          <span key={`${c.id}-${i}`} className="flex items-center gap-10 font-display text-lg text-foreground/70 md:text-xl">
             {c.name}
             <span className="text-gold">✦</span>
           </span>
@@ -33,19 +33,19 @@ export function CategoryMarquee({ categories }: { categories: CategoryDTO[] }) {
 export function CategoryGrid({ categories }: { categories: CategoryDTO[] }) {
   const top = categories.slice(0, 8);
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 md:px-6">
+    <section className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
       <SectionHeading
         eyebrow="Shop by category"
         title={<>Everything for the <em className="text-gradient-gold">craft of sewing</em></>}
         subtitle="From home machines to complete industrial setups — and every motor, belt, needle and bobbin in between."
       />
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {top.map((c, i) => (
-          <Reveal key={c.id} delay={i * 0.05} className={i === 0 || i === 5 ? "md:row-span-2" : ""}>
+          <Reveal key={c.id} delay={i * 0.05} className={i === 0 || i === 5 ? "lg:row-span-2" : ""}>
             <Link
               to="/products"
               search={{ category: c.slug }}
-              className="group relative block h-full min-h-[200px] overflow-hidden rounded-2xl bg-ink"
+              className="group relative block h-full min-h-[170px] overflow-hidden rounded-2xl bg-ink sm:min-h-[220px]"
             >
               <img
                 src={c.image_url ?? "/images/showroom.jpg"}
@@ -54,10 +54,10 @@ export function CategoryGrid({ categories }: { categories: CategoryDTO[] }) {
                 className="absolute inset-0 h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:scale-110 group-hover:opacity-60"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
-              <div className="relative flex h-full min-h-[200px] flex-col justify-end p-5 text-ink-foreground">
-                <p className="eyebrow text-[0.58rem] text-gold">{c.group_name}</p>
-                <h3 className="mt-1 text-xl leading-tight md:text-2xl">{c.name}</h3>
-                <span className="mt-3 inline-flex items-center gap-1 text-xs text-ink-foreground/70 transition-all group-hover:gap-2 group-hover:text-gold">
+              <div className="relative flex h-full min-h-[170px] flex-col justify-end p-4 text-ink-foreground sm:min-h-[220px] sm:p-5">
+                <p className="eyebrow truncate text-[0.55rem] tracking-[0.2em] text-gold sm:text-[0.58rem] sm:tracking-[0.28em]">{c.group_name}</p>
+                <h3 className="mt-1 text-base leading-tight sm:text-xl lg:text-2xl">{c.name}</h3>
+                <span className="mt-2 inline-flex items-center gap-1 text-xs text-ink-foreground/70 sm:mt-3 transition-all group-hover:gap-2 group-hover:text-gold">
                   Explore <ArrowRight className="h-3.5 w-3.5" />
                 </span>
               </div>
@@ -65,8 +65,8 @@ export function CategoryGrid({ categories }: { categories: CategoryDTO[] }) {
           </Reveal>
         ))}
       </div>
-      <div className="mt-10 text-center">
-        <Button asChild variant="outline-ink" size="xl">
+      <div className="mt-8 text-center md:mt-10">
+        <Button asChild variant="outline-ink" size="xl" className="w-full sm:w-auto">
           <Link to="/products">View all {categories.length} categories <ArrowRight /></Link>
         </Button>
       </div>
@@ -103,7 +103,7 @@ export function ProductSlider({
   if (!products.length) return null;
   const dark = tone === "dark";
   return (
-    <section className={dark ? "grain relative bg-gradient-ink py-24 text-ink-foreground" : "py-24"}>
+    <section className={dark ? "grain relative bg-gradient-ink py-16 text-ink-foreground md:py-24" : "py-16 md:py-24"}>
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeading
           align="left"
@@ -112,7 +112,7 @@ export function ProductSlider({
           title={title}
           subtitle={subtitle}
           action={
-            <div className="flex gap-2">
+            <div className="flex shrink-0 gap-2">
               <button type="button" onClick={() => api?.scrollPrev()} aria-label="Previous" className={`grid h-11 w-11 place-items-center rounded-full border transition-colors hover:border-gold hover:text-gold ${dark ? "border-ink-foreground/20" : "border-border"}`}>
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -123,9 +123,9 @@ export function ProductSlider({
           }
         />
         <Carousel setApi={setApi} opts={{ align: "start", loop: true }}>
-          <CarouselContent className="-ml-5 py-4">
+          <CarouselContent className="-ml-4 py-4 md:-ml-5">
             {products.map((p) => (
-              <CarouselItem key={p.id} className="basis-[85%] pl-5 text-foreground sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+              <CarouselItem key={p.id} className="basis-[82%] pl-4 text-foreground sm:basis-1/2 md:pl-5 lg:basis-1/3 xl:basis-1/4">
                 <ProductCard product={p} />
               </CarouselItem>
             ))}
@@ -150,7 +150,7 @@ export function BannerSlider({ banners }: { banners: Banner[] }) {
   const isInternal = b.cta_link.startsWith("/");
   return (
     <section className="mx-auto max-w-7xl px-4 md:px-6">
-      <div className="relative h-[460px] overflow-hidden rounded-3xl bg-ink text-ink-foreground shadow-lift md:h-[420px]">
+      <div className="relative h-[440px] overflow-hidden rounded-3xl bg-ink text-ink-foreground shadow-lift sm:h-[420px]">
         <AnimatePresence mode="sync">
           <motion.img
             key={b.id}
@@ -164,20 +164,20 @@ export function BannerSlider({ banners }: { banners: Banner[] }) {
             loading="lazy"
           />
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/20" />
-        <div className="relative flex h-full flex-col justify-center p-8 md:max-w-xl md:p-14">
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/20 sm:bg-gradient-to-r sm:from-ink sm:via-ink/85" />
+        <div className="relative flex h-full flex-col justify-end p-6 pb-14 sm:justify-center sm:p-10 md:max-w-xl md:p-14">
           <AnimatePresence mode="wait">
             <motion.div key={b.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.5 }}>
               <p className="eyebrow text-gold">{b.eyebrow}</p>
-              <h2 className="mt-3 text-4xl font-medium leading-tight md:text-5xl">{b.title}</h2>
-              <p className="mt-4 text-ink-foreground/75">{b.subtitle}</p>
-              <Button asChild variant="gold" size="xl" className="mt-8">
+              <h2 className="mt-3 text-3xl font-medium leading-tight sm:text-4xl md:text-5xl">{b.title}</h2>
+              <p className="mt-3 text-sm text-ink-foreground/75 sm:mt-4 sm:text-base">{b.subtitle}</p>
+              <Button asChild variant="gold" size="xl" className="mt-6 sm:mt-8">
                 {isInternal ? <a href={b.cta_link}>{b.cta_label} <ArrowRight /></a> : <a href={b.cta_link} target="_blank" rel="noopener noreferrer">{b.cta_label} <ArrowRight /></a>}
               </Button>
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="absolute bottom-6 left-8 flex gap-2 md:left-14">
+        <div className="absolute bottom-6 left-6 flex gap-2 sm:left-10 md:left-14">
           {banners.map((x, idx) => (
             <button
               key={x.id}
@@ -199,13 +199,13 @@ export function CollectionGrid({ products }: { products: ProductDTO[] }) {
   const shown = (active === "all" ? products : products.filter((p) => p.category?.slug === active)).slice(0, 8);
   if (!products.length) return null;
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 md:px-6">
+    <section className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
       <SectionHeading
         eyebrow="The collection"
         title={<>Popular <em className="text-gradient-gold">sewing machines</em></>}
         subtitle="Hand-picked machines for home tailoring, boutiques and full-scale garment production."
       />
-      <div className="mb-10 flex flex-wrap justify-center gap-2" role="tablist">
+      <div className="scrollbar-none -mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:mb-10 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0" role="tablist">
         {[["all", "All machines"] as const, ...cats].map(([slug, name]) => (
           <button
             key={slug}
@@ -213,13 +213,13 @@ export function CollectionGrid({ products }: { products: ProductDTO[] }) {
             role="tab"
             aria-selected={active === slug}
             onClick={() => setActive(slug)}
-            className={`rounded-full border px-4 py-2 text-sm transition-all ${active === slug ? "border-ink bg-ink text-ink-foreground" : "border-border hover:border-gold"}`}
+            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-all ${active === slug ? "border-ink bg-ink text-ink-foreground" : "border-border hover:border-gold"}`}
           >
             {name}
           </button>
         ))}
       </div>
-      <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <motion.div layout className="grid gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
         <AnimatePresence mode="popLayout">
           {shown.map((p) => (
             <motion.div key={p.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.35 }}>
@@ -243,7 +243,7 @@ const WHY = [
 
 export function WhyChoose() {
   return (
-    <section className="grain relative overflow-hidden bg-gradient-ink py-24 text-ink-foreground">
+    <section className="grain relative overflow-hidden bg-gradient-ink py-16 text-ink-foreground md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeading
           tone="light"
@@ -251,14 +251,14 @@ export function WhyChoose() {
           title={<>A shop built on <em className="text-gradient-gold">trust & skill</em></>}
           subtitle="Generations of tailors in and around Hariana rely on us for machines that last and service that shows up."
         />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {WHY.map(({ Icon, title, body }, i) => (
             <Reveal key={title} delay={i * 0.06}>
-              <div className="glass-ink group h-full rounded-2xl p-7 transition-all duration-500 hover:-translate-y-1 hover:border-gold/60">
-                <span className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-gold text-gold-foreground transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+              <div className="glass-ink group h-full rounded-2xl p-6 md:p-7 transition-all duration-500 hover:-translate-y-1 hover:border-gold/60">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-gold md:h-12 md:w-12 text-gold-foreground transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
                   <Icon className="h-6 w-6" />
                 </span>
-                <h3 className="mt-6 text-2xl">{title}</h3>
+                <h3 className="mt-5 text-xl md:mt-6 md:text-2xl">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-foreground/70">{body}</p>
               </div>
             </Reveal>
@@ -273,14 +273,14 @@ export function RepairSection() {
   const { contact } = useSettings();
   const services = ["Machine servicing & oiling", "Motor repair & servo conversion", "Timing, hook & feed adjustment", "Industrial setup & installation", "Spare part replacement", "Old machine restoration"];
   return (
-    <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 md:px-6 lg:grid-cols-2">
+    <section className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-16 md:px-6 md:py-24 lg:grid-cols-2 lg:gap-12">
       <Reveal className="relative">
         <div className="overflow-hidden rounded-3xl shadow-lift">
           <img src="/images/repair-service.jpg" alt="SARTAJ technician repairing an industrial sewing machine" loading="lazy" className="aspect-[4/3] w-full object-cover" />
         </div>
-        <div className="glass absolute -bottom-6 -right-2 rounded-2xl p-5 shadow-soft md:-right-6">
+        <div className="glass absolute -bottom-6 right-3 rounded-2xl p-4 shadow-soft md:-right-6 md:p-5">
           <Cog className="h-6 w-6 animate-[spin_8s_linear_infinite] text-gold" />
-          <p className="mt-2 font-display text-2xl">All brands</p>
+          <p className="mt-2 font-display text-xl md:text-2xl">All brands</p>
           <p className="text-xs text-muted-foreground">Domestic · Industrial</p>
         </div>
       </Reveal>
@@ -294,11 +294,11 @@ export function RepairSection() {
         <ul className="grid gap-3 sm:grid-cols-2">
           {services.map((s) => (
             <li key={s} className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm">
-              <span className="h-2 w-2 rounded-full bg-gold" /> {s}
+              <span className="h-2 w-2 shrink-0 rounded-full bg-gold" /> {s}
             </li>
           ))}
         </ul>
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
           <Button asChild variant="ink" size="xl"><Link to="/enquire" search={{ type: "Repair & Service" }}>Book a Service</Link></Button>
           <Button asChild variant="whatsapp" size="xl">
             <a href={whatsappLink(contact.whatsapp, "Hello SARTAJ, I need my sewing machine repaired.")} target="_blank" rel="noopener noreferrer">
@@ -316,14 +316,14 @@ type GalleryItem = { id: string; title: string; category: string; image_url: str
 export function ImageShowcase({ items }: { items: GalleryItem[] }) {
   if (!items.length) return null;
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 md:px-6">
+    <section className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
       <SectionHeading
         align="left"
         eyebrow="Inside SARTAJ"
         title={<>A glimpse of our <em className="text-gradient-gold">showroom</em></>}
         action={<Button asChild variant="outline-ink" size="xl"><Link to="/gallery">Open Gallery <ArrowRight /></Link></Button>}
       />
-      <div className="columns-2 gap-4 md:columns-4 [&>*]:mb-4">
+      <div className="columns-2 gap-3 sm:gap-4 md:columns-3 lg:columns-4 [&>*]:mb-3 sm:[&>*]:mb-4">
         {items.map((g, i) => (
           <Reveal key={g.id} delay={i * 0.04}>
             <Link to="/gallery" className="group relative block overflow-hidden rounded-2xl">
@@ -346,16 +346,16 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
   useAutoplay(api, 6000);
   if (!items.length) return null;
   return (
-    <section className="bg-secondary py-24">
+    <section className="bg-secondary py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeading eyebrow="Customer stories" title={<>Loved by <em className="text-gradient-gold">tailors & businesses</em></>} />
         <Carousel setApi={setApi} opts={{ align: "start", loop: true }}>
-          <CarouselContent className="-ml-5">
+          <CarouselContent className="-ml-4 md:-ml-5">
             {items.map((t) => (
-              <CarouselItem key={t.id} className="basis-full pl-5 md:basis-1/2 lg:basis-1/3">
-                <figure className="flex h-full flex-col rounded-3xl border border-border bg-card p-8 shadow-soft">
+              <CarouselItem key={t.id} className="basis-[90%] pl-4 sm:basis-full md:basis-1/2 md:pl-5 lg:basis-1/3">
+                <figure className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-soft md:p-8">
                   <Quote className="h-8 w-8 text-gold" />
-                  <blockquote className="mt-4 flex-1 font-display text-xl leading-relaxed">“{t.message}”</blockquote>
+                  <blockquote className="mt-4 flex-1 font-display text-lg leading-relaxed md:text-xl">“{t.message}”</blockquote>
                   <div className="mt-6 flex items-center gap-1" aria-label={`${t.rating} out of 5 stars`}>
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star key={i} className={`h-4 w-4 ${i < t.rating ? "fill-gold text-gold" : "text-border"}`} />
@@ -378,21 +378,21 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
 export function AboutIntro() {
   const { content } = useSettings();
   return (
-    <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 md:px-6 lg:grid-cols-[1.1fr_1fr]">
+    <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:px-6 md:py-24 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
       <div>
         <SectionHeading align="left" eyebrow="About SARTAJ" title={content.aboutTitle} />
         <Reveal>
-          <p className="text-lg leading-relaxed text-muted-foreground">{content.aboutBody}</p>
+          <p className="text-base leading-relaxed text-muted-foreground md:text-lg">{content.aboutBody}</p>
           <div className="stitch-line mt-8 w-40" />
           <Button asChild variant="link" className="mt-6 px-0 text-base">
             <Link to="/about">Our story <ArrowRight /></Link>
           </Button>
         </Reveal>
       </div>
-      <Reveal className="grid grid-cols-2 gap-4">
-        <img src="/images/showroom.jpg" alt="SARTAJ showroom interior" loading="lazy" className="col-span-2 aspect-[16/9] w-full rounded-3xl object-cover shadow-soft" />
-        <img src="/images/manual-machine.jpg" alt="Classic SARTAJ tailoring machine" loading="lazy" className="aspect-square w-full rounded-3xl object-cover" />
-        <img src="/images/spare-parts.jpg" alt="Spare parts at SARTAJ" loading="lazy" className="aspect-square w-full rounded-3xl object-cover" />
+      <Reveal className="grid grid-cols-2 gap-3 sm:gap-4">
+        <img src="/images/showroom.jpg" alt="SARTAJ showroom interior" loading="lazy" className="col-span-2 aspect-[16/9] w-full rounded-2xl object-cover shadow-soft sm:rounded-3xl" />
+        <img src="/images/manual-machine.jpg" alt="Classic SARTAJ tailoring machine" loading="lazy" className="aspect-square w-full rounded-2xl object-cover sm:rounded-3xl" />
+        <img src="/images/spare-parts.jpg" alt="Spare parts at SARTAJ" loading="lazy" className="aspect-square w-full rounded-2xl object-cover sm:rounded-3xl" />
       </Reveal>
     </section>
   );
@@ -401,15 +401,15 @@ export function AboutIntro() {
 export function ContactLocation() {
   const { contact } = useSettings();
   return (
-    <section className="mx-auto max-w-7xl px-4 pb-24 md:px-6">
+    <section className="mx-auto max-w-7xl px-4 pb-16 md:px-6 md:pb-24">
       <div className="grid overflow-hidden rounded-3xl border border-border bg-card shadow-lift lg:grid-cols-[1fr_1.2fr]">
-        <div className="p-8 md:p-12">
+        <div className="p-6 sm:p-8 md:p-12">
           <p className="eyebrow text-gold">Visit the shop</p>
-          <h2 className="mt-3 text-4xl font-medium">Come see the machines in person.</h2>
+          <h2 className="mt-3 text-3xl font-medium md:text-4xl">Come see the machines in person.</h2>
           <p className="mt-4 text-muted-foreground">Try machines, compare models and get expert advice. All purchases are made at our shop.</p>
           <ul className="mt-8 space-y-4 text-sm">
-            <li className="flex gap-3"><MapPin className="h-5 w-5 text-gold" /> {contact.address}</li>
-            <li className="flex gap-3"><Headphones className="h-5 w-5 text-gold" /> {contact.hours}</li>
+            <li className="flex gap-3"><MapPin className="h-5 w-5 shrink-0 text-gold" /> {contact.address}</li>
+            <li className="flex gap-3"><Headphones className="h-5 w-5 shrink-0 text-gold" /> {contact.hours}</li>
           </ul>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             <Button asChild variant="ink" size="xl"><a href={telLink(contact.phone)}>Call {formatPhone(contact.phone)}</a></Button>
@@ -417,7 +417,7 @@ export function ContactLocation() {
             <Button asChild variant="gold" size="xl" className="sm:col-span-2"><a href={directionsLink(contact)} target="_blank" rel="noopener noreferrer"><MapPin /> Get Directions</a></Button>
           </div>
         </div>
-        <MapEmbed contact={contact} className="min-h-[360px] rounded-none border-0" />
+        <MapEmbed contact={contact} className="min-h-[300px] rounded-none border-0 md:min-h-[360px]" />
       </div>
     </section>
   );

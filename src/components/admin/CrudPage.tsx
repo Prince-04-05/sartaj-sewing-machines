@@ -126,17 +126,17 @@ export function CrudPage({
     <div>
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <h1 className="text-4xl">{title}</h1>
+          <h1 className="text-3xl md:text-4xl">{title}</h1>
           {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
         </div>
         <div className="flex gap-2">
           {searchText && (
-            <label className="flex h-10 items-center gap-2 rounded-full border border-border bg-card px-4">
+            <label className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-full border border-border bg-card px-4 md:flex-none">
               <Search className="h-4 w-4 text-muted-foreground" />
-              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="w-40 bg-transparent text-sm outline-none" />
+              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="w-full min-w-0 bg-transparent text-sm outline-none md:w-40" />
             </label>
           )}
-          <Button variant="gold" className="rounded-full" onClick={() => setEditing({ id: null, values: { ...defaults } })}>
+          <Button variant="gold" className="shrink-0 rounded-full" onClick={() => setEditing({ id: null, values: { ...defaults } })}>
             <Plus /> Add new
           </Button>
         </div>
@@ -164,7 +164,7 @@ export function CrudPage({
       </div>
 
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
-        <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
+        <DialogContent className="max-h-[90dvh] w-[calc(100vw-1.5rem)] max-w-2xl overflow-y-auto rounded-2xl p-5 sm:p-6">
           <DialogHeader>
             <DialogTitle className="font-display text-2xl">{editing?.id ? `Edit ${title.replace(/s$/, "").toLowerCase()}` : `Add ${title.replace(/s$/, "").toLowerCase()}`}</DialogTitle>
           </DialogHeader>

@@ -102,13 +102,13 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
     );
   }
 
-  const field = "h-12 rounded-xl bg-background";
+  const field = "h-12 rounded-xl bg-background text-base sm:text-sm";
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className={compact ? "space-y-4" : "space-y-5 rounded-3xl border border-border bg-card p-6 shadow-soft md:p-8"}
+      className={compact ? "space-y-4" : "space-y-5 rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-6 md:p-8"}
     >
       {/* Honeypot: hidden from people, tempting for bots */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -146,7 +146,7 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
           ) : (
             <select
               id="enq-product"
-              className={`${field} w-full border border-input px-3 text-sm`}
+              className={`${field} w-full min-w-0 border border-input px-3`}
               value={selectedProductId ?? ""}
               onChange={(e) => {
                 const id = e.target.value || null;
@@ -163,7 +163,7 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
         </div>
         <div className="space-y-2">
           <Label htmlFor="enq-type">Enquiry type *</Label>
-          <select id="enq-type" className={`${field} w-full border border-input px-3 text-sm`} {...register("enquiryType")}>
+          <select id="enq-type" className={`${field} w-full min-w-0 border border-input px-3`} {...register("enquiryType")}>
             {ENQUIRY_TYPES.map((t) => (
               <option key={t} value={t}>{t}</option>
             ))}
@@ -172,7 +172,7 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
       </div>
       <div className="space-y-2">
         <Label htmlFor="enq-msg">Message</Label>
-        <Textarea id="enq-msg" rows={4} className="rounded-xl bg-background" placeholder="Tell us what you need — machine type, quantity, repair issue, preferred visit time…" {...register("message")} />
+        <Textarea id="enq-msg" rows={4} className="rounded-xl bg-background text-base sm:text-sm" placeholder="Tell us what you need — machine type, quantity, repair issue, preferred visit time…" {...register("message")} />
         {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
       </div>
       {serverError && (

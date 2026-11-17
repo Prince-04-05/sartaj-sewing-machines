@@ -119,35 +119,35 @@ function ProductsPage() {
 
   return (
     <div>
-      <section className="grain relative overflow-hidden bg-gradient-ink pb-16 pt-20 text-ink-foreground">
+      <section className="grain relative overflow-hidden bg-gradient-ink pb-10 pt-12 text-ink-foreground md:pb-16 md:pt-20">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <Reveal>
             <p className="eyebrow text-gold">The SARTAJ catalogue</p>
-            <h1 className="mt-4 text-5xl font-medium md:text-6xl">{activeCat ? activeCat.name : <>Machines, motors <em className="text-gradient-gold">& parts</em></>}</h1>
-            <p className="mt-4 max-w-2xl text-ink-foreground/70">
+            <h1 className="mt-4 text-[2.5rem] font-medium leading-[1.05] sm:text-5xl md:text-6xl">{activeCat ? activeCat.name : <>Machines, motors <em className="text-gradient-gold">& parts</em></>}</h1>
+            <p className="mt-4 max-w-2xl text-[0.95rem] text-ink-foreground/70 md:text-base">
               {activeCat ? activeCat.description : "Explore our full range. Every product is available to see and buy at our Hariana shop — send an enquiry and we'll guide you."}
             </p>
           </Reveal>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <label className="glass-ink flex h-13 flex-1 items-center gap-3 rounded-full px-5" style={{ height: 52 }}>
-              <Search className="h-5 w-5 text-gold" />
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row md:mt-10">
+            <label className="glass-ink flex min-w-0 flex-1 items-center gap-3 rounded-full px-5" style={{ height: 52 }}>
+              <Search className="h-5 w-5 shrink-0 text-gold" />
               <span className="sr-only">Search products</span>
               <input
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
                 placeholder="Search machines, motors, needles, bobbins…"
-                className="h-full flex-1 bg-transparent text-sm outline-none placeholder:text-ink-foreground/50"
+                className="h-full min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-ink-foreground/50 sm:text-sm"
               />
               {term && (
                 <button type="button" onClick={() => setTerm("")} aria-label="Clear search"><X className="h-4 w-4" /></button>
               )}
             </label>
-            <label className="glass-ink flex items-center gap-2 rounded-full px-5" style={{ height: 52 }}>
+            <label className="glass-ink flex shrink-0 items-center gap-2 rounded-full px-5" style={{ height: 52 }}>
               <span className="text-xs text-ink-foreground/60">Sort</span>
               <select
                 value={sort}
                 onChange={(e) => navigate({ search: (prev) => ({ ...prev, sort: e.target.value as Sort }) })}
-                className="bg-transparent text-sm font-semibold outline-none [&>option]:text-foreground"
+                className="min-w-0 flex-1 bg-transparent text-sm font-semibold outline-none sm:flex-none [&>option]:text-foreground"
                 aria-label="Sort products"
               >
                 {SORTS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
@@ -157,28 +157,28 @@ function ProductsPage() {
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:px-6 lg:grid-cols-[260px_1fr]">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-8 md:px-6 md:py-12 lg:grid-cols-[240px_1fr] xl:grid-cols-[260px_1fr]">
         <aside className="hidden lg:block">
           <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">{filterList}</div>
         </aside>
         <div>
-          <div className="mb-6 flex items-center justify-between gap-3">
+          <div className="mb-5 flex items-center justify-between gap-3 md:mb-6">
             <p className="text-sm text-muted-foreground">
               Showing <strong className="text-foreground">{filtered.length}</strong> {filtered.length === 1 ? "product" : "products"}
               {q && <> for “{q}”</>}
             </p>
-            <button type="button" onClick={() => setFiltersOpen(true)} className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm lg:hidden">
+            <button type="button" onClick={() => setFiltersOpen(true)} className="inline-flex shrink-0 items-center gap-2 rounded-full border border-border px-4 py-2 text-sm lg:hidden">
               <SlidersHorizontal className="h-4 w-4" /> Categories
             </button>
           </div>
           {filtered.length === 0 ? (
-            <div className="rounded-3xl border border-dashed border-border p-12 text-center">
+            <div className="rounded-3xl border border-dashed border-border p-8 text-center md:p-12">
               <h2 className="text-2xl">Nothing found here yet</h2>
               <p className="mt-2 text-sm text-muted-foreground">We stock far more than we list. Send an enquiry and we'll check for you.</p>
               <Link to="/enquire" className="mt-6 inline-block rounded-full bg-ink px-6 py-3 text-sm font-semibold text-ink-foreground">Ask about a product</Link>
             </div>
           ) : (
-            <motion.div layout className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <motion.div layout className="grid gap-5 sm:grid-cols-2 md:gap-6 xl:grid-cols-3">
               <AnimatePresence mode="popLayout">
                 {filtered.map((p, i) => (
                   <motion.div key={p.id} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.35, delay: Math.min(i, 8) * 0.03 }}>

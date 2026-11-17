@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { ArrowUp, Phone } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowUp, MessageSquareText, Phone } from "lucide-react";
 import { useSettings } from "@/hooks/use-settings";
 import { telLink, whatsappLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -23,38 +24,77 @@ export function FloatingActions() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const waHref = whatsappLink(contact.whatsapp, "Hello SARTAJ, I would like to know more about your sewing machines.");
+
   return (
-    <div className="fixed bottom-5 right-4 z-40 flex flex-col items-end gap-3 md:bottom-8 md:right-6">
+    <>
+      {/* Back to top — sits above the mobile action bar, beside the desktop stack */}
       <button
         type="button"
         aria-label="Back to top"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className={cn(
-          "grid h-11 w-11 place-items-center rounded-full border border-border bg-card text-foreground shadow-soft transition-all hover:border-gold",
+          "fixed right-4 z-40 grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-foreground shadow-soft transition-all hover:border-gold md:right-6 md:h-11 md:w-11",
+          "bottom-[calc(76px+env(safe-area-inset-bottom))] md:bottom-[184px]",
           showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0",
         )}
       >
         <ArrowUp className="h-4 w-4" />
       </button>
-      <a
-        href={telLink(contact.phone)}
-        aria-label={`Call SARTAJ on ${contact.phone}`}
-        className="grid h-13 w-13 place-items-center rounded-full bg-ink text-gold shadow-lift transition-transform hover:scale-105"
-        style={{ height: 52, width: 52 }}
+
+      {/* Desktop / tablet: floating call + WhatsApp */}
+      <div className="fixed bottom-8 right-6 z-40 hidden flex-col items-end gap-3 md:flex">
+        <a
+          href={telLink(contact.phone)}
+          aria-label={`Call SARTAJ on ${contact.phone}`}
+          className="grid place-items-center rounded-full bg-ink text-gold shadow-lift transition-transform hover:scale-105"
+          style={{ height: 52, width: 52 }}
+        >
+          <Phone className="h-5 w-5" />
+        </a>
+        <a
+          href={waHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with SARTAJ on WhatsApp"
+          className="relative grid place-items-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-lift transition-transform hover:scale-105"
+          style={{ height: 56, width: 56 }}
+        >
+          <span className="absolute inset-0 animate-ping rounded-full bg-whatsapp opacity-25" />
+          <WhatsAppIcon className="relative h-7 w-7" />
+        </a>
+      </div>
+
+      {/* Phones: a slim action bar so buttons never cover the content */}
+      <nav
+        aria-label="Quick contact"
+        className="glass fixed inset-x-0 bottom-0 z-40 border-x-0 border-b-0 px-3 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 shadow-lift md:hidden"
       >
-        <Phone className="h-5 w-5" />
-      </a>
-      <a
-        href={whatsappLink(contact.whatsapp, "Hello SARTAJ, I would like to know more about your sewing machines.")}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat with SARTAJ on WhatsApp"
-        className="relative grid place-items-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-lift transition-transform hover:scale-105"
-        style={{ height: 56, width: 56 }}
-      >
-        <span className="absolute inset-0 animate-ping rounded-full bg-whatsapp opacity-25" />
-        <WhatsAppIcon className="relative h-7 w-7" />
-      </a>
-    </div>
+        <div className="mx-auto grid max-w-md grid-cols-3 gap-2">
+          <a
+            href={telLink(contact.phone)}
+            aria-label={`Call SARTAJ on ${contact.phone}`}
+            className="flex h-12 items-center justify-center gap-1.5 rounded-full bg-ink text-xs font-semibold text-ink-foreground"
+          >
+            <Phone className="h-4 w-4 text-gold" /> Call
+          </a>
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with SARTAJ on WhatsApp"
+            className="flex h-12 items-center justify-center gap-1.5 rounded-full bg-whatsapp text-xs font-semibold text-whatsapp-foreground"
+          >
+            <WhatsAppIcon className="h-4 w-4" /> WhatsApp
+          </a>
+          <Link
+            to="/enquire"
+            className="flex h-12 items-center justify-center gap-1.5 rounded-full bg-gradient-gold text-xs font-semibold text-gold-foreground"
+          >
+            <MessageSquareText className="h-4 w-4" /> Enquire
+          </Link>
+        </div>
+      </nav>
+    </>
   );
 }
