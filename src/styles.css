@@ -105,6 +105,7 @@
 
   --gradient-gold: linear-gradient(135deg, oklch(0.84 0.11 85), oklch(0.72 0.13 70) 55%, oklch(0.82 0.1 88));
   --gradient-ink: radial-gradient(120% 120% at 80% 0%, oklch(0.3 0.06 262) 0%, oklch(0.18 0.035 262) 55%, oklch(0.13 0.03 262) 100%);
+  --gradient-stage: radial-gradient(ellipse at 50% 38%, oklch(0.32 0.065 262) 0%, oklch(0.2 0.045 262) 52%, oklch(0.12 0.03 262) 100%);
   --gradient-ivory: linear-gradient(180deg, oklch(0.985 0.01 85), oklch(0.95 0.02 85));
   --shadow-soft: 0 10px 30px -12px color-mix(in oklab, var(--ink) 25%, transparent);
   --shadow-lift: 0 30px 60px -20px color-mix(in oklab, var(--ink) 40%, transparent);
@@ -160,6 +161,7 @@
 
 @utility bg-gradient-gold { background-image: var(--gradient-gold); }
 @utility bg-gradient-ink { background-image: var(--gradient-ink); }
+@utility bg-gradient-stage { background-image: var(--gradient-stage); }
 @utility bg-gradient-ivory { background-image: var(--gradient-ivory); }
 @utility shadow-soft { box-shadow: var(--shadow-soft); }
 @utility shadow-lift { box-shadow: var(--shadow-lift); }

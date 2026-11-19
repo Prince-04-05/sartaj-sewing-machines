@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Hero } from "@/components/home/Hero";
+import { Machine3DShowcase } from "@/components/home/Machine3DShowcase";
 import {
   AboutIntro, BannerSlider, CategoryGrid, CategoryMarquee, CollectionGrid, ContactLocation,
   ImageShowcase, ProductSlider, RepairSection, Testimonials, WhyChoose,
@@ -57,6 +58,7 @@ function Index() {
         subtitle="Our most trusted picks — chosen by tailors, boutiques and garment units."
         products={data.featured.length ? data.featured : data.bestSellers}
       />
+      <Machine3DShowcase />
       <BannerSlider banners={data.banners} />
       <CollectionGrid products={data.machines} />
       <ProductSlider

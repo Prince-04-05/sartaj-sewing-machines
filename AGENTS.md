@@ -37,3 +37,4 @@ use the editor.
 - Enquiry email notifications are not wired yet: they need a verified sender domain, then a fixed template sent from `submitEnquiry`.
 - Product prices must never exist in the schema or UI.
 - On phones, contact shortcuts live in a fixed bottom bar (FloatingActions) with a matching spacer after the footer in __root; floating round buttons are md+ only, so nothing covers page content on small screens.
+- The homepage 3D machine (`src/components/home/machine3d/scene.ts`) is plain three.js, dynamically imported when its section nears the viewport and paused off-screen; wheel zoom is off so it never hijacks page scroll.
