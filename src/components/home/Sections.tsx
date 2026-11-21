@@ -149,7 +149,7 @@ export function BannerSlider({ banners }: { banners: Banner[] }) {
   const b = banners[i] ?? banners[0]!;
   const isInternal = b.cta_link.startsWith("/");
   return (
-    <section className="mx-auto max-w-7xl px-4 md:px-6">
+    <section className="mx-auto max-w-7xl px-4 pt-16 md:px-6 md:pt-24">
       <div className="relative h-[440px] overflow-hidden rounded-3xl bg-ink text-ink-foreground shadow-lift sm:h-[420px]">
         <AnimatePresence mode="sync">
           <motion.img
