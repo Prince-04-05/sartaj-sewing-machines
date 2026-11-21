@@ -41,7 +41,7 @@ export function CategoryGrid({ categories }: { categories: CategoryDTO[] }) {
       />
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {top.map((c, i) => (
-          <Reveal key={c.id} delay={i * 0.05} className={i === 0 || i === 5 ? "lg:row-span-2" : ""}>
+          <Reveal key={c.id} delay={i * 0.05} className={i === 0 ? "col-span-2 lg:row-span-2" : i === 5 ? "col-span-2" : ""}>
             <Link
               to="/products"
               search={{ category: c.slug }}
@@ -177,15 +177,20 @@ export function BannerSlider({ banners }: { banners: Banner[] }) {
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="absolute bottom-6 left-6 flex gap-2 sm:left-10 md:left-14">
+        <div className="absolute bottom-3 left-4 flex sm:left-8 md:left-12">
           {banners.map((x, idx) => (
             <button
               key={x.id}
               type="button"
               aria-label={`Show banner ${idx + 1}`}
+              aria-current={idx === i ? "true" : undefined}
               onClick={() => setI(idx)}
-              className={`h-1.5 rounded-full transition-all ${idx === i ? "w-10 bg-gold" : "w-4 bg-ink-foreground/30"}`}
-            />
+              className="group grid h-11 place-items-center px-1.5"
+            >
+              <span
+                className={`block h-1.5 rounded-full transition-all ${idx === i ? "w-10 bg-gold" : "w-4 bg-ink-foreground/30 group-hover:bg-ink-foreground/60"}`}
+              />
+            </button>
           ))}
         </div>
       </div>
@@ -221,13 +226,29 @@ export function CollectionGrid({ products }: { products: ProductDTO[] }) {
       </div>
       <motion.div layout className="grid gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
         <AnimatePresence mode="popLayout">
-          {shown.map((p) => (
-            <motion.div key={p.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.35 }}>
+          {shown.map((p, idx) => (
+            <motion.div
+              key={p.id}
+              layout
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.35 }}
+              // Phones show 4 cards so the homepage doesn't become an endless scroll
+              className={idx >= 4 ? "hidden sm:block" : undefined}
+            >
               <ProductCard product={p} />
             </motion.div>
           ))}
         </AnimatePresence>
       </motion.div>
+      <div className="mt-8 text-center md:mt-10">
+        <Button asChild variant="outline-ink" size="xl" className="w-full sm:w-auto">
+          <Link to="/products" search={active === "all" ? {} : { category: active }}>
+            View all machines <ArrowRight />
+          </Link>
+        </Button>
+      </div>
     </section>
   );
 }

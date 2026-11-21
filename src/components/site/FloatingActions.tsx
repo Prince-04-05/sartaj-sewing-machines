@@ -47,7 +47,7 @@ export function FloatingActions() {
         <a
           href={telLink(contact.phone)}
           aria-label={`Call SARTAJ on ${contact.phone}`}
-          className="grid place-items-center rounded-full bg-ink text-gold shadow-lift transition-transform hover:scale-105"
+          className="grid place-items-center rounded-full border border-gold/60 bg-ink text-gold shadow-lift transition-transform hover:scale-105"
           style={{ height: 52, width: 52 }}
         >
           <Phone className="h-5 w-5" />

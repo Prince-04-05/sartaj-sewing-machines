@@ -23,7 +23,7 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xl gap-0 overflow-hidden p-0">
+      <DialogContent className="top-4 w-[calc(100%-2rem)] max-w-xl translate-y-0 gap-0 overflow-hidden rounded-2xl p-0 sm:top-[12vh] sm:rounded-2xl">
         <DialogTitle className="sr-only">Search products</DialogTitle>
         <form
           onSubmit={(e) => {
@@ -31,7 +31,7 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
             onOpenChange(false);
             navigate({ to: "/products", search: { q: q.trim() || undefined } });
           }}
-          className="flex items-center gap-3 border-b border-border px-4"
+          className="flex items-center gap-3 border-b border-border pl-4 pr-12"
         >
           <Search className="h-5 w-5 text-muted-foreground" />
           <input
@@ -43,7 +43,7 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
             className="h-14 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground"
           />
         </form>
-        <div className="max-h-[60vh] overflow-y-auto p-2">
+        <div className="max-h-[min(60vh,28rem)] overflow-y-auto p-2">
           {isLoading && (
             <div className="flex items-center justify-center gap-2 p-8 text-sm text-muted-foreground">
               <Loader2 className="h-4 w-4 animate-spin" /> Loading catalogue…

@@ -42,6 +42,21 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Mobile menu: close on Escape and stop the page behind it from scrolling.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
     <>
       <div className="relative z-50 overflow-hidden bg-ink text-ink-foreground">
@@ -101,6 +116,8 @@ export function SiteHeader() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
               className="grid h-10 w-10 place-items-center rounded-full bg-ink text-ink-foreground lg:hidden"
             >
               <Menu className="h-5 w-5" />
@@ -115,7 +132,11 @@ export function SiteHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-gradient-ink text-ink-foreground lg:hidden"
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            className="fixed inset-0 z-[60] overflow-y-auto bg-gradient-ink pb-10 text-ink-foreground lg:hidden"
           >
             <div className="flex h-18 items-center justify-between px-4" style={{ height: 72 }}>
               <Logo tone="light" />
@@ -123,6 +144,7 @@ export function SiteHeader() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
+                autoFocus
                 className="grid h-10 w-10 place-items-center rounded-full border border-gold/40"
               >
                 <X className="h-5 w-5" />
