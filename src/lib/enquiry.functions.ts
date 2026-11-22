@@ -1,12 +1,14 @@
 import { createServerFn } from "@tanstack/react-start";
-import { enquirySchema, isLikelySpam } from "./enquiry-schema";
+import { enquirySchema } from "./enquiry-schema";
 
 export type EnquiryResult =
   | { ok: true; reference: string; createdAt: string }
   | { ok: false; error: string };
 
 const RATE_WINDOW_MIN = 15;
-const RATE_MAX = 3;
+// Spam protection: at most RATE_MAX enquiries per phone number in the window.
+// (Hidden-field and fill-speed checks were removed: autofill and form-filler tools tripped them for real people.)
+const RATE_MAX = 5;
 
 export const submitEnquiry = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => input)
@@ -16,10 +18,6 @@ export const submitEnquiry = createServerFn({ method: "POST" })
       return { ok: false, error: parsed.error.issues[0]?.message ?? "Please check the form" };
     }
     const e = parsed.data;
-    if (isLikelySpam(e)) {
-      return { ok: false, error: "Please wait a moment, then press Send Enquiry again." };
-    }
-
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const since = new Date(Date.now() - RATE_WINDOW_MIN * 60_000).toISOString();

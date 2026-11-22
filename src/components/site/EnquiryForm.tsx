@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useServerFn } from "@tanstack/react-start";
@@ -23,7 +23,6 @@ type Props = {
 export function EnquiryForm({ product, products = [], defaultType = "Product Enquiry", compact }: Props) {
   const [summary, setSummary] = useState<EnquirySummary | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
-  const startedAt = useRef(0);
   const submit = useServerFn(submitEnquiry);
 
   const form = useForm<EnquiryInput, unknown, EnquiryParsed>({
@@ -37,14 +36,8 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
       productName: product?.name ?? "",
       enquiryType: product ? "Product Enquiry" : defaultType,
       message: "",
-      website: "",
-      elapsedMs: 0,
     },
   });
-
-  useEffect(() => {
-    startedAt.current = Date.now();
-  }, []);
 
   useEffect(() => {
     if (product) {
@@ -60,8 +53,7 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
   async function onSubmit(values: EnquiryParsed) {
     setServerError(null);
     try {
-      const elapsedMs = startedAt.current ? Math.max(0, Math.round(Date.now() - startedAt.current)) : 0;
-      const res = await submit({ data: { ...values, elapsedMs } });
+      const res = await submit({ data: values });
       if (!res.ok) {
         setServerError(res.error);
         toast.error(res.error);
@@ -96,7 +88,6 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
         onReset={() => {
           setSummary(null);
           form.reset();
-          startedAt.current = Date.now();
         }}
       />
     );
@@ -110,14 +101,6 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
       noValidate
       className={compact ? "space-y-4" : "space-y-5 rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-6 md:p-8"}
     >
-      {/* Honeypot: hidden from people, tempting for bots */}
-      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-        <label>
-          Website
-          <input tabIndex={-1} autoComplete="new-password" {...register("website")} />
-        </label>
-      </div>
-
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="enq-name">Full name *</Label>

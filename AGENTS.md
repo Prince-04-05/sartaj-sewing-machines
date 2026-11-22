@@ -31,7 +31,7 @@ use the editor.
 
 ## Project rules (SARTAJ)
 - Public catalogue reads go through `src/lib/catalog.functions.ts` server functions using the anon client in `supabase-public.server.ts` (dynamic import inside handlers), so pages SSR with SEO data.
-- Enquiries are written only by the `submitEnquiry` server function (validation, honeypot, timing and per-phone rate limit), never directly from the browser; anon has no insert grant on `enquiries`.
+- Enquiries are written only by the `submitEnquiry` server function (validation and per-phone rate limit; no honeypot or fill-speed checks because autofill tools tripped them for real visitors), never directly from the browser; anon has no insert grant on `enquiries`.
 - Admin CRUD uses the browser client directly; table RLS (`has_role(auth.uid(),'admin')`) is the security boundary. The first auth user becomes admin via a trigger.
 - The `media` bucket is private (workspace blocks public buckets); uploads store a 10-year signed URL in the row.
 - Enquiry email notifications are not wired yet: they need a verified sender domain, then a fixed template sent from `submitEnquiry`.
