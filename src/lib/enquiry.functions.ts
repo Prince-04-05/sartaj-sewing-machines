@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { enquirySchema, isTooFast } from "./enquiry-schema";
+import { enquirySchema, isLikelySpam } from "./enquiry-schema";
 
 export type EnquiryResult =
   | { ok: true; reference: string; createdAt: string }
@@ -16,8 +16,8 @@ export const submitEnquiry = createServerFn({ method: "POST" })
       return { ok: false, error: parsed.error.issues[0]?.message ?? "Please check the form" };
     }
     const e = parsed.data;
-    if (e.website || isTooFast(e.startedAt, Date.now())) {
-      return { ok: false, error: "Please take a moment to fill the form and try again." };
+    if (isLikelySpam(e)) {
+      return { ok: false, error: "Please wait a moment, then press Send Enquiry again." };
     }
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

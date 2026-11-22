@@ -20,9 +20,11 @@ export const enquirySchema = z.object({
   productName: z.string().trim().max(160).optional().default(""),
   enquiryType: z.enum(ENQUIRY_TYPES),
   message: z.string().trim().max(1500).optional().default(""),
-  // Spam protection: hidden honeypot must stay empty, and the form must have been open ≥ 2.5s.
-  website: z.string().max(0, "Spam detected").optional().default(""),
-  startedAt: z.number().int(),
+  // Spam protection (checked on the server, see isLikelySpam): hidden honeypot must stay empty,
+  // and the form must have been open ≥ 2.5s. Time is measured on the visitor's device as a duration,
+  // so a phone whose clock is wrong can still send.
+  website: z.string().max(500).optional().default(""),
+  elapsedMs: z.number().int().nonnegative(),
 });
 
 export type EnquiryInput = z.input<typeof enquirySchema>;
@@ -30,6 +32,10 @@ export type EnquiryParsed = z.output<typeof enquirySchema>;
 
 export const MIN_FORM_MS = 2500;
 
-export function isTooFast(startedAt: number, now: number) {
-  return now - startedAt < MIN_FORM_MS;
+export function isTooFast(elapsedMs: number) {
+  return elapsedMs < MIN_FORM_MS;
+}
+
+export function isLikelySpam(e: { website?: string | undefined; elapsedMs: number }) {
+  return Boolean(e.website) || isTooFast(e.elapsedMs);
 }

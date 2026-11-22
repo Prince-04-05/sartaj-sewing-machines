@@ -38,14 +38,13 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
       enquiryType: product ? "Product Enquiry" : defaultType,
       message: "",
       website: "",
-      startedAt: 0,
+      elapsedMs: 0,
     },
   });
 
   useEffect(() => {
     startedAt.current = Date.now();
-    form.setValue("startedAt", startedAt.current);
-  }, [form]);
+  }, []);
 
   useEffect(() => {
     if (product) {
@@ -61,7 +60,8 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
   async function onSubmit(values: EnquiryParsed) {
     setServerError(null);
     try {
-      const res = await submit({ data: { ...values, startedAt: startedAt.current } });
+      const elapsedMs = startedAt.current ? Math.max(0, Math.round(Date.now() - startedAt.current)) : 0;
+      const res = await submit({ data: { ...values, elapsedMs } });
       if (!res.ok) {
         setServerError(res.error);
         toast.error(res.error);
@@ -114,7 +114,7 @@ export function EnquiryForm({ product, products = [], defaultType = "Product Enq
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
         <label>
           Website
-          <input tabIndex={-1} autoComplete="off" {...register("website")} />
+          <input tabIndex={-1} autoComplete="new-password" {...register("website")} />
         </label>
       </div>
 
